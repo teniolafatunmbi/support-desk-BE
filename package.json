@@ -1,0 +1,29 @@
+{
+  "name": "support-desk",
+  "version": "1.0.0",
+  "description": "Support ticket application",
+  "main": "server.ts",
+  "scripts": {
+    "watch": "tsc -w",
+    "start": "node backend/dist/server.js",
+    "server": "nodemon backend/dist/server.js"
+  },
+  "author": "Teniola Fatunmbi",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "nodemon": "^2.0.20",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "@types/express": "^4.17.15",
+    "@types/node": "^18.11.17",
+    "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.8.0",
+    "tsc": "^2.0.4"
+  }
+}
