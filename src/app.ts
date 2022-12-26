@@ -2,11 +2,13 @@ import express, { urlencoded, json } from 'express';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import cors from 'cors';
 
 import dotenv from 'dotenv';
 
 import apiRoutes from './routes/index.routes';
 import errorHandler from './middlewares/error';
+import logger from './config/logger';
 
 dotenv.config();
 
@@ -15,6 +17,9 @@ const app = express();
 app.use(urlencoded({ extended: true }));
 
 app.use(cookieParser());
+
+app.use(cors());
+app.options('*', cors());
 
 app.use(json());
 

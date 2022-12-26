@@ -10,7 +10,6 @@ const PORT = process.env.PORT || 8000;
 
 const connectToDB = async () => {
   try {
-    logger.info(config.jwt.secret);
     const conn = await mongoose.connect(config.db.URI);
     logger.info(`Database connected successfully on host: ${conn.connection.host}`);
   } catch (error) {

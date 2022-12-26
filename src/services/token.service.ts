@@ -1,5 +1,5 @@
 import moment, { Moment } from 'moment';
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import config from '../config/config';
 
 const TOKEN_TYPE = {
@@ -17,6 +17,11 @@ class TokenService {
       type: tokenType,
     };
     return jwt.sign(payload, secret);
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  public async decodeToken(token) {
+    return jwt.verify(token, config.jwt.secret);
   }
 
   public async generateAuthTokens(user) {

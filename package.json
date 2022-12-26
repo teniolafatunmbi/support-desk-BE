@@ -5,8 +5,8 @@
   "main": "server.ts",
   "scripts": {
     "watch": "tsc -w",
-    "start": "node dist/server.js",
-    "dev": "nodemon dist/server.js",
+    "start": "node dist/src/server.js",
+    "dev": "nodemon dist/src/server.js",
     "lint": "eslint --ignore-path .eslintignore --ext .js,.ts .",
     "lint:fix": "eslint . --ext .ts --fix",
     "prettier": "prettier --check **/*.ts",
@@ -19,6 +19,7 @@
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
     "@types/cookie-parser": "^1.4.3",
+    "@types/cors": "^2.8.13",
     "@types/jsonwebtoken": "^9.0.0",
     "@types/morgan": "^1.9.3",
     "@typescript-eslint/parser": "^5.47.0",
