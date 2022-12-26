@@ -12,7 +12,6 @@ const authGuard = catchAsync(async (req: Request, res: Response, next: NextFunct
   let token;
   const { authorization } = req.headers;
 
-  // !!TODO: implement authorization with refresh token from cookies
   if (authorization && authorization.startsWith('Bearer')) {
     try {
       // eslint-disable-next-line prefer-destructuring
