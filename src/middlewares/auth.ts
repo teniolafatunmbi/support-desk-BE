@@ -1,15 +1,12 @@
-import { resolveSoa } from 'dns';
 import { NextFunction, Request, Response } from 'express';
-import jwt, { JwtPayload, TokenExpiredError } from 'jsonwebtoken';
-import config from '../config/config';
-import logger from '../config/logger';
+import { TokenExpiredError } from 'jsonwebtoken';
 import User from '../models/user.model';
 import TokenService from '../services/token.service';
 import ApiError from '../utils/ApiError';
 import catchAsync from '../utils/catchAsync';
 
 const authGuard = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-  let token;
+  let token: string;
   const { authorization } = req.headers;
 
   if (authorization && authorization.startsWith('Bearer')) {

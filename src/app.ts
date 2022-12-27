@@ -18,8 +18,27 @@ app.use(urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
-app.use(cors());
-app.options('*', cors());
+if (process.env.NODE_ENV === 'production') {
+  app.use(cors({ origin: ['*'] }));
+} else {
+  const whitelist = ['http://localhost:5173'];
+  const corsOptions = {
+    origin(origin, callback) {
+      if (whitelist.indexOf(origin) !== -1 || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+  };
+  app.use(
+    cors({
+      ...corsOptions,
+      credentials: true,
+      allowedHeaders: ['access-control-allow-credentials', 'authorization', 'content-type', 'access-control-allow-origin'],
+    })
+  );
+}
 
 app.use(json());
 
