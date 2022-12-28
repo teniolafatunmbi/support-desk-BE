@@ -45,7 +45,7 @@ class TicketService {
       throw new ApiError(404, 'User not found');
     }
 
-    const tickets = await Ticket.find({ user: confirmedUser._id }).skip(offset).limit(limit);
+    const tickets = await Ticket.find({ user: confirmedUser._id }).skip(offset).limit(limit).sort({ createdAt: 'desc' });
     const ticketsCount = await Ticket.count();
 
     return { tickets, ticketsCount };

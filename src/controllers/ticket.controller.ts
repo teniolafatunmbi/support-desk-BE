@@ -104,9 +104,9 @@ class TicketController {
   public updateTicket = catchAsync(async (req: Request, res: Response) => {
     const { user } = req;
     const { id } = req.params;
-    const { product, description } = req.body;
+    const { product, description, status } = req.body;
 
-    const updatedTicket = await this.ticketService.update(id, { product, description }, user);
+    const updatedTicket = await this.ticketService.update(id, { product, description, status }, user);
 
     return res.status(202).json({
       message: `Ticket ${id} updated successfully`,

@@ -8,6 +8,7 @@ const createTicket = Joi.object().keys({
 const updateTicket = Joi.object().keys({
   product: Joi.string().optional(),
   description: Joi.string().optional(),
+  status: Joi.string().optional(),
 });
 
 const ticketSchema = { createTicket, updateTicket };
