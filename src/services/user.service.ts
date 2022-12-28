@@ -15,7 +15,7 @@ class UserService {
 
     // hash password
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(payload.email, salt);
+    const hashedPassword = await bcrypt.hash(payload.password, salt);
 
     // save user to db
     const newUser = await User.create({

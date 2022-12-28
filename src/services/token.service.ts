@@ -1,11 +1,9 @@
 import moment, { Moment } from 'moment';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import config from '../config/config';
-
-const TOKEN_TYPE = {
-  access: 'access',
-  refresh: 'refresh',
-};
+import Token from '../models/token.model';
+import { tokenTypes } from '../utils';
+import { IUser } from '../models/user.model';
 
 class TokenService {
   // eslint-disable-next-line class-methods-use-this
@@ -26,10 +24,18 @@ class TokenService {
 
   public async generateAuthTokens(user) {
     const accessTokenExpiry = moment().add(config.jwt.accessTokenExpiryMinutes, 'minutes');
-    const accessToken = await this.generateToken(user._id, accessTokenExpiry, TOKEN_TYPE.access);
+    const accessToken = await this.generateToken(user._id, accessTokenExpiry, tokenTypes.ACCESS);
 
     const refreshTokenExpiry = moment().add(config.jwt.refreshTokenExpiryDays, 'days');
-    const refreshToken = await this.generateToken(user._id, refreshTokenExpiry, TOKEN_TYPE.refresh);
+    const refreshToken = await this.generateToken(user._id, refreshTokenExpiry, tokenTypes.REFRESH);
+
+    // save refresh token in db
+    await Token.create({
+      token: refreshToken,
+      expires: refreshTokenExpiry.toDate(),
+      type: tokenTypes.REFRESH,
+      user: user._id,
+    });
 
     return {
       access: {

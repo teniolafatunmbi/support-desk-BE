@@ -1,12 +1,12 @@
-import { Model, model, Schema } from 'mongoose';
+import { model, Schema } from 'mongoose';
 import bcrypt from 'bcryptjs';
 
-interface IUser {
+export interface IUser {
   first_name: string;
   last_name: string;
-  password: string;
+  password?: string;
   email: string;
-  isAdmin: boolean;
+  isAdmin?: boolean;
 }
 
 const userSchema = new Schema<IUser>(
