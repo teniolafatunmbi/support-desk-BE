@@ -36,6 +36,6 @@ const ticketSchema = new Schema<ITicket>(
   }
 );
 
-const Ticket = model<ITicket>('User', ticketSchema);
+const Ticket = model<ITicket>('Ticket', ticketSchema);
 
 export default Ticket;

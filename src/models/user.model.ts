@@ -50,6 +50,7 @@ userSchema.methods.isPasswordMatch = function (password) {
   return bcrypt.compare(password, this.password);
 };
 
-// const User = model<IUser>('User', userSchema);
+const User = model<IUser>('User', userSchema);
 
-export default models.Users || model<IUser>('Users', userSchema);
+// export default models.Users || model<IUser>('Users', userSchema);
+export default User;

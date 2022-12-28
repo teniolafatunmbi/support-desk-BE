@@ -3,8 +3,11 @@ import User from '../models/user.model';
 import Ticket from '../models/ticket.model';
 import ApiError from '../utils/ApiError';
 import catchAsync from '../utils/catchAsync';
+import TicketService from '../services/ticket.service';
 
 class TicketController {
+  protected ticketService = new TicketService();
+
   /**
    *
    * @desc Returns all user tickets
@@ -15,13 +18,7 @@ class TicketController {
   public getTickets = catchAsync(async (req: Request, res: Response) => {
     const { user } = req;
 
-    const confirmedUser = await User.findById(user._id);
-
-    if (!confirmedUser) {
-      throw new ApiError(404, 'User not found');
-    }
-
-    const tickets = await Ticket.find({ user: confirmedUser._id });
+    const tickets = await this.ticketService.all(user);
 
     return res.status(200).json({
       data: tickets,
@@ -39,17 +36,7 @@ class TicketController {
     const { user } = req;
     const { id } = req.params;
 
-    const ticket = await Ticket.findById(id);
-
-    if (!ticket) {
-      throw new ApiError(404, 'Ticket does not exist');
-    }
-
-    const confirmUserToTicket = await Ticket.findOne({ user: user._id });
-
-    if (!confirmUserToTicket) {
-      throw new ApiError(401, 'User cannot view this ticket');
-    }
+    const ticket = await this.ticketService.get(id, user);
 
     return res.status(200).json({
       data: ticket,
@@ -65,19 +52,9 @@ class TicketController {
    */
   public createTicket = catchAsync(async (req: Request, res: Response) => {
     const { product, description } = req.body;
+    const { user } = req;
 
-    const user = await User.findById(req.user._id);
-
-    if (!user) {
-      throw new ApiError(404, 'User not found');
-    }
-
-    const ticket = await Ticket.create({
-      product,
-      description,
-      user: req.user._id,
-      status: 'new',
-    });
+    const ticket = await this.ticketService.create({ product, description }, user);
 
     return res.status(201).json({
       message: 'Ticket created successfully',
@@ -95,15 +72,7 @@ class TicketController {
     const { user } = req;
     const { id } = req.params;
 
-    const confirmUserToTicket = await Ticket.findOne({ user: user._id });
-
-    if (!confirmUserToTicket) {
-      throw new ApiError(401, 'User cannot delete this ticket');
-    }
-
-    const ticket = await Ticket.findById(id);
-
-    await ticket.remove();
+    await this.ticketService.delete(id, user);
 
     return res.status(200).json({
       message: `Ticket ${id} deleted successfully`,
@@ -119,14 +88,9 @@ class TicketController {
   public updateTicket = catchAsync(async (req: Request, res: Response) => {
     const { user } = req;
     const { id } = req.params;
+    const { product, description } = req.body;
 
-    const confirmUserToTicket = await Ticket.findOne({ user: user._id });
-
-    if (!confirmUserToTicket) {
-      throw new ApiError(401, 'User cannot update this ticket');
-    }
-
-    const updatedTicket = await Ticket.findByIdAndUpdate(id, req.body, { new: true });
+    const updatedTicket = await this.ticketService.update(id, { product, description }, user);
 
     return res.status(202).json({
       message: `Ticket ${id} updated successfully`,
