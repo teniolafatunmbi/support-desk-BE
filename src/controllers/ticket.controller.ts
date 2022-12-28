@@ -4,7 +4,9 @@ import Ticket from '../models/ticket.model';
 import ApiError from '../utils/ApiError';
 import catchAsync from '../utils/catchAsync';
 import TicketService from '../services/ticket.service';
+import paginator from '../utils/paginator';
 
+// !TODO: Implement pagination for tickets
 class TicketController {
   protected ticketService = new TicketService();
 
@@ -17,11 +19,25 @@ class TicketController {
    */
   public getTickets = catchAsync(async (req: Request, res: Response) => {
     const { user } = req;
+    const { page, size } = req.query;
 
-    const tickets = await this.ticketService.all(user);
+    const pageNumber = page !== undefined ? parseInt(page.toString(), 10) : 1;
+    const pageSize = size !== undefined ? parseInt(size.toString(), 10) : 10;
+
+    const limit = pageSize < 1 || pageSize > 100 ? 10 : pageSize;
+    const offset = paginator.offset(pageNumber, pageSize);
+
+    const { tickets, ticketsCount } = await this.ticketService.all(user, offset, limit);
+
+    const pointers = paginator.pageUrls(pageNumber, limit, ticketsCount, `${req.baseUrl}`);
 
     return res.status(200).json({
-      data: tickets,
+      data: {
+        items: tickets,
+        previous_page: pointers.previous,
+        next_page: pointers.next,
+        total: ticketsCount,
+      },
     });
   });
 

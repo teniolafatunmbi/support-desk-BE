@@ -38,16 +38,17 @@ class TicketService {
   };
 
   // eslint-disable-next-line class-methods-use-this
-  public all = async (user: Record<string, string | boolean>) => {
+  public all = async (user: Record<string, string | boolean>, offset = 0, limit = 10) => {
     const confirmedUser = await User.findById(user._id);
 
     if (!confirmedUser) {
       throw new ApiError(404, 'User not found');
     }
 
-    const tickets = await Ticket.find({ user: confirmedUser._id });
+    const tickets = await Ticket.find({ user: confirmedUser._id }).skip(offset).limit(limit);
+    const ticketsCount = await Ticket.count();
 
-    return tickets;
+    return { tickets, ticketsCount };
   };
 
   // eslint-disable-next-line class-methods-use-this
