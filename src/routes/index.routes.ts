@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import logger from '../config/logger';
 import authRoutes from './auth.routes';
 import userRoutes from './user.routes';
 import ticketRoutes from './ticket.routes';
+import noteRoutes from './note.routes';
 
 const router = Router();
 
@@ -18,6 +18,10 @@ const ROUTES = [
   {
     path: '/tickets',
     route: ticketRoutes,
+  },
+  {
+    path: '/notes',
+    route: noteRoutes,
   },
 ];
 

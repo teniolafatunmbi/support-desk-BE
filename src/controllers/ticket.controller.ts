@@ -27,7 +27,7 @@ class TicketController {
     const limit = pageSize < 1 || pageSize > 100 ? 10 : pageSize;
     const offset = paginator.offset(pageNumber, pageSize);
 
-    const { tickets, ticketsCount } = await this.ticketService.all(user, offset, limit);
+    const { tickets, ticketsCount } = await this.ticketService.all(user._id, offset, limit);
 
     const pointers = paginator.pageUrls(pageNumber, limit, ticketsCount, `${req.baseUrl}`);
 

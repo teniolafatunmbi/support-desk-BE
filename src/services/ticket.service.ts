@@ -38,8 +38,8 @@ class TicketService {
   };
 
   // eslint-disable-next-line class-methods-use-this
-  public all = async (user: Record<string, string | boolean>, offset = 0, limit = 10) => {
-    const confirmedUser = await User.findById(user._id);
+  public all = async (userId: string, offset = 0, limit = 10) => {
+    const confirmedUser = await User.findById(userId);
 
     if (!confirmedUser) {
       throw new ApiError(404, 'User not found');
