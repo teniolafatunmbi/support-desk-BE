@@ -1,8 +1,7 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import { JwtPayload, TokenExpiredError } from 'jsonwebtoken';
 import moment from 'moment';
 import config from '../config/config';
-import logger from '../config/logger';
 import Token from '../models/token.model';
 import User from '../models/user.model';
 import AuthService from '../services/auth.service';
@@ -21,7 +20,7 @@ class AuthController {
   /**
    *
    * @desc Register a new user
-   * @route /api/auth/register
+   * @route POST /api/auth/register
    * @access Public
    */
   public register = catchAsync(async (req: Request, res: Response) => {
@@ -49,7 +48,7 @@ class AuthController {
   /**
    *
    * @desc Login a user
-   * @route /api/auth/login
+   * @route POST /api/auth/login
    * @access Public
    */
   // eslint-disable-next-line class-methods-use-this
@@ -78,7 +77,7 @@ class AuthController {
   /**
    *
    * @desc Logs a user out
-   * @route /api/auth/logout
+   * @route POST /api/auth/logout
    * @access Private
    */
   // eslint-disable-next-line class-methods-use-this
@@ -98,7 +97,7 @@ class AuthController {
   /**
    *
    * @desc Refresh access token
-   * @route /api/auth/refresh-token
+   * @route POST /api/auth/refresh-token
    * @access Private
    */
   // eslint-disable-next-line class-methods-use-this

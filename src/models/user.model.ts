@@ -1,4 +1,4 @@
-import { model, Schema } from 'mongoose';
+import { model, models, Schema } from 'mongoose';
 import bcrypt from 'bcryptjs';
 
 export interface IUser {
@@ -50,6 +50,6 @@ userSchema.methods.isPasswordMatch = function (password) {
   return bcrypt.compare(password, this.password);
 };
 
-const User = model<IUser>('User', userSchema);
+// const User = model<IUser>('User', userSchema);
 
-export default User;
+export default models.Users || model<IUser>('Users', userSchema);

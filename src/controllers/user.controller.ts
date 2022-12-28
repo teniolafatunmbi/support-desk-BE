@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import AuthService from '../services/auth.service';
 import TokenService from '../services/token.service';
 import UserService from '../services/user.service';
-import ApiError from '../utils/ApiError';
 import catchAsync from '../utils/catchAsync';
 
 class UserController {
@@ -15,7 +14,7 @@ class UserController {
   /**
    *
    * @desc Get current user
-   * @route /api/users/me
+   * @route GET /api/users/me
    * @access Private
    */
   public getCurrentUser = catchAsync(async (req, res: Response) => {
