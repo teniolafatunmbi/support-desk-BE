@@ -16,7 +16,7 @@ Support desk API
 
 ## SETUP
 
-1. Copy the environment variables in `.env.sample` to `.env` and fill in the values
+1. Copy the environment variables in `.env.sample` to `.env` and fill in the required values
 
 ```sh
     >$  cp -r .env.sample .env
