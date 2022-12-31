@@ -60,7 +60,12 @@ app.use((0, cookie_parser_1.default)());
 if (process.env.NODE_ENV === 'production') {
   app.use((0, cors_1.default)({ origin: ['*'] }));
 } else {
-  const whitelist = ['http://localhost:5173'];
+  const whitelist = [
+    'http://localhost:5173',
+    'https://support-desk-tau.vercel.app',
+    'https://support-desk-devteni.vercel.app',
+    'https://support-desk-git-main-devteni.vercel.app',
+  ];
   const corsOptions = {
     origin(origin, callback) {
       if (whitelist.indexOf(origin) !== -1 || !origin) {

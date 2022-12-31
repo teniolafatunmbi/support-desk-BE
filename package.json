@@ -14,9 +14,6 @@
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
     "prepare": "husky install"
   },
-  "engines": {
-    "yarn": "1.22.5"
-  },
   "author": "Teniola Fatunmbi",
   "license": "MIT",
   "devDependencies": {

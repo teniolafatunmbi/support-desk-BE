@@ -10,7 +10,7 @@ const errorHandler = (err, req, res, next) => {
   }
   return res.status(statusCode).send({
     message: msg,
-    stack: process.env.NODE_ENV === 'prod' ? null : err.stack,
+    stack: process.env.NODE_ENV === 'production' ? null : err.stack,
   });
 };
 exports.default = errorHandler;
