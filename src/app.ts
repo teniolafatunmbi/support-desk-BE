@@ -24,8 +24,11 @@ if (process.env.NODE_ENV === 'production') {
   const whitelist = [
     'http://localhost:5173',
     'https://support-desk-tau.vercel.app',
+    'https://support-desk-tau.vercel.app/',
     'https://support-desk-devteni.vercel.app',
+    'https://support-desk-devteni.vercel.app/',
     'https://support-desk-git-main-devteni.vercel.app',
+    'https://support-desk-git-main-devteni.vercel.app/',
   ];
   const corsOptions = {
     origin(origin, callback) {
