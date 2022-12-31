@@ -10,6 +10,8 @@ import UserService from '../services/user.service';
 import ApiError from '../utils/ApiError';
 import catchAsync from '../utils/catchAsync';
 
+const IS_REFRESH_TOKEN_SECURE = config.env === 'production';
+
 class AuthController {
   protected userService = new UserService();
 
@@ -30,7 +32,7 @@ class AuthController {
     res.cookie('refresh-token', refresh.token, {
       expires: refresh.expires,
       httpOnly: true,
-      secure: config.env === 'production',
+      secure: IS_REFRESH_TOKEN_SECURE,
       sameSite: 'strict',
     });
 
@@ -59,7 +61,7 @@ class AuthController {
     res.cookie('refresh-token', refresh.token, {
       expires: refresh.expires,
       httpOnly: true,
-      secure: config.env === 'production',
+      secure: IS_REFRESH_TOKEN_SECURE,
       sameSite: 'strict',
     });
 
