@@ -15,6 +15,7 @@ const token_service_1 = __importDefault(require('../services/token.service'));
 const user_service_1 = __importDefault(require('../services/user.service'));
 const ApiError_1 = __importDefault(require('../utils/ApiError'));
 const catchAsync_1 = __importDefault(require('../utils/catchAsync'));
+const IS_REFRESH_TOKEN_SECURE = config_1.default.env === 'production';
 class AuthController {
   constructor() {
     this.userService = new user_service_1.default();
@@ -32,7 +33,7 @@ class AuthController {
       res.cookie('refresh-token', refresh.token, {
         expires: refresh.expires,
         httpOnly: true,
-        secure: config_1.default.env === 'production',
+        secure: IS_REFRESH_TOKEN_SECURE,
         sameSite: 'strict',
       });
       return res.status(201).json({
@@ -58,7 +59,7 @@ class AuthController {
       res.cookie('refresh-token', refresh.token, {
         expires: refresh.expires,
         httpOnly: true,
-        secure: config_1.default.env === 'production',
+        secure: IS_REFRESH_TOKEN_SECURE,
         sameSite: 'strict',
       });
       return res.status(200).json({
