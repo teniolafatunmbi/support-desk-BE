@@ -57,33 +57,31 @@ dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use((0, express_1.urlencoded)({ extended: true }));
 app.use((0, cookie_parser_1.default)());
-if (process.env.NODE_ENV === 'production') {
-  app.use(
-    (0, cors_1.default)({
-      origin: ['*'],
-      credentials: true,
-      allowedHeaders: ['access-control-allow-credentials', 'authorization', 'content-type', 'access-control-allow-origin'],
-    })
-  );
-} else {
-  const whitelist = ['http://localhost:5173'];
-  const corsOptions = {
-    origin(origin, callback) {
-      if (whitelist.indexOf(origin) !== -1 || !origin) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-  };
-  app.use(
-    (0, cors_1.default)({
-      ...corsOptions,
-      credentials: true,
-      allowedHeaders: ['access-control-allow-credentials', 'authorization', 'content-type', 'access-control-allow-origin'],
-    })
-  );
-}
+const whitelist = [
+  'http://localhost:5173',
+  'https://support-desk-tau.vercel.app',
+  'https://support-desk-tau.vercel.app/',
+  'https://support-desk-devteni.vercel.app',
+  'https://support-desk-devteni.vercel.app/',
+  'https://support-desk-git-main-devteni.vercel.app',
+  'https://support-desk-git-main-devteni.vercel.app/',
+];
+const corsOptions = {
+  origin(origin, callback) {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
+app.use(
+  (0, cors_1.default)({
+    ...corsOptions,
+    credentials: true,
+    allowedHeaders: ['access-control-allow-credentials', 'authorization', 'content-type', 'access-control-allow-origin'],
+  })
+);
 app.use((0, express_1.json)());
 app.use((0, helmet_1.default)());
 app.use((0, morgan_1.default)('tiny'));

@@ -18,33 +18,32 @@ app.use(urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(
-    cors({
-      origin: ['*'],
-      credentials: true,
-      allowedHeaders: ['access-control-allow-credentials', 'authorization', 'content-type', 'access-control-allow-origin'],
-    })
-  );
-} else {
-  const whitelist = ['http://localhost:5173'];
-  const corsOptions = {
-    origin(origin, callback) {
-      if (whitelist.indexOf(origin) !== -1 || !origin) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-  };
-  app.use(
-    cors({
-      ...corsOptions,
-      credentials: true,
-      allowedHeaders: ['access-control-allow-credentials', 'authorization', 'content-type', 'access-control-allow-origin'],
-    })
-  );
-}
+const whitelist = [
+  'http://localhost:5173',
+  'https://support-desk-tau.vercel.app',
+  'https://support-desk-tau.vercel.app/',
+  'https://support-desk-devteni.vercel.app',
+  'https://support-desk-devteni.vercel.app/',
+  'https://support-desk-git-main-devteni.vercel.app',
+  'https://support-desk-git-main-devteni.vercel.app/',
+];
+
+const corsOptions = {
+  origin(origin, callback) {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
+app.use(
+  cors({
+    ...corsOptions,
+    credentials: true,
+    allowedHeaders: ['access-control-allow-credentials', 'authorization', 'content-type', 'access-control-allow-origin'],
+  })
+);
 
 app.use(json());
 
