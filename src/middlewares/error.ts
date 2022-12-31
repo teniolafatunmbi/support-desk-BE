@@ -12,7 +12,7 @@ const errorHandler = (err: ApiError, req: Request, res: Response, next: NextFunc
   }
   return res.status(statusCode).send({
     message: msg,
-    stack: process.env.NODE_ENV === 'prod' ? null : err.stack,
+    stack: process.env.NODE_ENV === 'production' ? null : err.stack,
   });
 };
 
