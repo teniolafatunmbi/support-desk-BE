@@ -10,7 +10,7 @@ import UserService from '../services/user.service';
 import ApiError from '../utils/ApiError';
 import catchAsync from '../utils/catchAsync';
 
-const IS_REFRESH_TOKEN_SECURE = config.env === 'production';
+const IS_REFRESH_TOKEN_SECURE = config.env === 'development';
 
 class AuthController {
   protected userService = new UserService();
@@ -33,6 +33,8 @@ class AuthController {
       expires: refresh.expires,
       httpOnly: true,
       secure: IS_REFRESH_TOKEN_SECURE,
+      domain: '.vercel.app',
+      path: '/',
       sameSite: 'strict',
     });
 
@@ -62,6 +64,8 @@ class AuthController {
       expires: refresh.expires,
       httpOnly: true,
       secure: IS_REFRESH_TOKEN_SECURE,
+      domain: '.vercel.app',
+      path: '/',
       sameSite: 'strict',
     });
 

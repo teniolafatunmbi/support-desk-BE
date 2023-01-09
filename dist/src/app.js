@@ -78,7 +78,6 @@ const corsOptions = {
 app.use(
   (0, cors_1.default)({
     ...corsOptions,
-    origin: true,
     credentials: true,
     allowedHeaders: ['access-control-allow-credentials', 'authorization', 'content-type', 'access-control-allow-origin'],
   })
