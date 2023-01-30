@@ -34,7 +34,7 @@ class AuthController {
       httpOnly: true,
       secure: IS_REFRESH_TOKEN_SECURE,
       domain: 'vercel.app',
-      sameSite: 'none',
+      sameSite: IS_REFRESH_TOKEN_SECURE ? 'none' : 'strict',
     });
 
     return res.status(201).json({
@@ -64,7 +64,7 @@ class AuthController {
       httpOnly: true,
       secure: IS_REFRESH_TOKEN_SECURE,
       domain: 'vercel.app',
-      sameSite: 'none',
+      sameSite: IS_REFRESH_TOKEN_SECURE ? 'none' : 'strict',
     });
 
     return res.status(200).json({
