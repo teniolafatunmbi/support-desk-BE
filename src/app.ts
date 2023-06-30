@@ -8,7 +8,6 @@ import dotenv from 'dotenv';
 
 import apiRoutes from './routes/index.routes';
 import errorHandler from './middlewares/error';
-import logger from './config/logger';
 
 dotenv.config();
 
