@@ -33,7 +33,6 @@ class AuthController {
       expires: refresh.expires,
       httpOnly: true,
       secure: IS_REFRESH_TOKEN_SECURE,
-      domain: 'vercel.app',
       sameSite: IS_REFRESH_TOKEN_SECURE ? 'none' : 'strict',
     });
 
@@ -63,7 +62,6 @@ class AuthController {
       expires: refresh.expires,
       httpOnly: true,
       secure: IS_REFRESH_TOKEN_SECURE,
-      domain: 'vercel.app',
       sameSite: IS_REFRESH_TOKEN_SECURE ? 'none' : 'strict',
     });
 

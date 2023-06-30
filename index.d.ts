@@ -15,6 +15,10 @@ export type createNote = {
   payload: createNotePayload;
 };
 
-export interface IRequest extends Request {
-  user: Record<string, string>;
+declare global {
+  namespace Express {
+    export interface Request {
+      user: Record<string, string>;
+    }
+  }
 }

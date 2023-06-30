@@ -18,15 +18,7 @@ app.use(urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
-const whitelist = [
-  'http://localhost:5173',
-  'https://support-desk-tau.vercel.app',
-  'https://support-desk-tau.vercel.app/',
-  'https://support-desk-devteni.vercel.app',
-  'https://support-desk-devteni.vercel.app/',
-  'https://support-desk-git-main-devteni.vercel.app',
-  'https://support-desk-git-main-devteni.vercel.app/',
-];
+const whitelist = ['http://localhost:5173', 'https://support-desk-xa79.onrender.com'];
 
 const corsOptions = {
   origin(origin, callback) {
